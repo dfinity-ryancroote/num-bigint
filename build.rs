@@ -26,6 +26,12 @@ fn main() {
         autocfg::emit("has_try_from");
     }
 
+    if let Ok(target_os) = env::var("CARGO_CFG_TARGET_OS") {
+        if target_os == "ios" {
+            autocfg::emit("has_try_from");
+        }
+    };
+
     if let Ok(arch) = env::var("CARGO_CFG_TARGET_ARCH") {
         if arch == "x86_64" || arch == "x86" {
             let digit = if u64_digit { "u64" } else { "u32" };
